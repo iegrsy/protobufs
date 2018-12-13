@@ -14,6 +14,12 @@ service NvrService {
 	rpc GetCameraRecordInfo(CameraQ) returns (RecordInfo) {}
 	rpc GetCameraStream(CameraStreamQ) returns (stream StreamFrame) {}
 	rpc GetRecordDetails(CameraQ) returns (RecordDetails){}
+	
+	rpc StopCameraStream(CameraStreamPar) returns (google.protobuf.Empty) {}
+	rpc ResumeCameraStream(CameraStreamPar) returns (google.protobuf.Empty) {}
+	rpc ForwardCameraStream(CameraStreamPar) returns (google.protobuf.Empty) {}
+	rpc RewindCameraStream(CameraStreamPar) returns (google.protobuf.Empty) {}
+	rpc Go2TimeCameraStream(CameraStreamPar) returns (google.protobuf.Empty) {}
 
 	rpc AddCamera(CameraInfo) returns (CameraInfo) {}
 	rpc DelCamera(CameraQ) returns (CameraInfo) {}
@@ -231,4 +237,13 @@ message RecordDetails {
 	int64 record_begin_time = 1;
 	int64 record_end_time = 2;
 	repeated RecordDetail detail = 3;
+}
+
+message Time {
+	int64 time_value = 1; // milliseconds
+}
+
+message CameraStreamPar {
+	CameraQ camera = 1;
+	Time time = 2;
 }
